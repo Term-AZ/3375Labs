@@ -11,10 +11,7 @@ _start:
 
 _main_loop:
 	bl _read_switches
-	cmp r1, #0	
-		bgt on
-	cmp r1, #0	
-		beq off
+ 	b on
 		
 
 _delay_loop:
@@ -54,6 +51,8 @@ _read_switches:
 	bx lr
 
 _find_number:
+	cmp r1, #0
+		beq zero
     cmp r1, #1      
         beq one      
     cmp r1, #2
@@ -144,4 +143,4 @@ f:
 LED_BASE:		.word	0xFF200000
 HEX3_HEX0_BASE:	.word	0xFF200020
 SW_BASE:		.word	0xFF200040
-DELAY_LENGTH:	.word	50
+DELAY_LENGTH:	.word	5000000
