@@ -21,19 +21,30 @@ _delay_loop:
 	str r0, [r3]
 	
 	cmp r7, #0
-		beq on
+		beq _main_loop
 	sub r7,#1
 	b _delay_loop
+	
+_on_delay_loop:
+	cmp r7, #0
+		beq _main_loop
+	sub r7, #1
+	b _on_delay_loop
 	
 on:
 	eor r6, #1
 	bl _find_number
 	bl _display_hex
 	
+	
 	mov r7, r2
 	cmp r6, #1
 		beq _delay_loop
+	cmp r6, #0
+		beq _on_delay_loop
 	b _main_loop
+	
+
 
 _display_hex:
 	str r0, [r3]@load byte into ssd
@@ -106,4 +117,4 @@ nine:
 LED_BASE:		.word	0xFF200000
 HEX3_HEX0_BASE:	.word	0xFF200020
 SW_BASE:		.word	0xFF200040
-DELAY_LENGTH:	.word	2
+DELAY_LENGTH:	.word	50
