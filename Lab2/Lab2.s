@@ -165,25 +165,25 @@ b6:
 	mov r2, #0
 
 displayNumber:
-	str r2, [r0]
-  	mov r12, #0x0000000
+	str r2, [r0] //restore r2 incase of any updates after
+  	mov r12, #0x0000000 //reset display values
 	
-	ldrb r5, [r0,#2]
-	mov r10, #240
-	AND r5, r5, r10
+	ldrb r5, [r0,#2] //load most significant byte
+	mov r10, #240 //set up AND mask (11110000)
+	AND r5, r5, r10 //AND operation
 	
-	bl _find_number
+	bl _find_number //set binary value
 	
-	lsl r12, #8
+	lsl r12, #8 //shift register values left by 1 byte
 	
-	ldrb r5, [r0,#2]
-	mov r10, #15
-	AND r5, r5, r10
+	ldrb r5, [r0,#2] //relaod most significant byte
+	mov r10, #15 //set up AND mask (00001111)
+	AND r5, r5, r10 //AND operation
 	
-	bl _find_number
+	bl _find_number //set binary value
 	
-	str r12, [r6]
-	mov r12, #0x0000000
+	str r12, [r6] //upload to display
+	mov r12, #0x0000000 //reset r12 to begin next four digits. 
 	
 	ldrb r5, [r0,#1]
 	mov r10, #240
