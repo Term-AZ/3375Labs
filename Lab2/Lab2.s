@@ -188,7 +188,7 @@ checker:
 	mov r10, #160
 	AND r5, r5, r10
 	
-	cmp r5, #160
+	cmp r5, #96
 		beq b6
 		
 	b displayNumber
