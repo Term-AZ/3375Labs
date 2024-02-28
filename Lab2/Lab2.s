@@ -180,7 +180,7 @@ displayNumber:
 	mov r10, #15 //set up AND mask (00001111)
 	AND r5, r5, r10 //AND operation
 	
-	bl _find_number //set binary value
+	bl _find_number //set binary value. adds the needed binary data to display said digit. then add this to r12 register
 	
 	str r12, [r6] //upload to display
 	mov r12, #0x0000000 //reset r12 to begin next four digits. 
@@ -247,7 +247,7 @@ _find_number:
 
 ////////////////////////DEFINITIONS////////////////////////
 zero:
-	add r12, r12, #0b0111111
+	add r12, r12, #0b0111111 //after the bitshit to the left. the first byte should be free now. add it to r12
     bx lr
 one:
 	add r12, r12, #0b0000110
