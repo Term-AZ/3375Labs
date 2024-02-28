@@ -11,12 +11,12 @@ _start:
 	LDR r0, =MEM
     LDR R1, =timer     // MPCore private timer base address
     LDR R2, =0             // start counter at 0 
-	LDR R3, =20       // timeout = 1/(200 MHz) x 200x10^6 = 1 sec
+	LDR R3, =20000000 //timeout = 1/(200 MHz) x 200x10^6 = 1 sec
     ldr r4, =0xff200050 //buttons
     ldr r7, =DISPLAY
 	ldr r6, =DISPLAY2
 	ldr r8, =SWITCH
-    mov r12, #0
+    mov r12, #0x0000000
 	ldr r11,=MEM2
     
     STR R3, [R1]             // write to timer load register
@@ -165,10 +165,36 @@ b6:
 	mov r2, #0
 
 displayNumber:
-  	mov r12, #0
+	str r2, [r0]
+  	mov r12, #0x0000000
+	
+	ldrb r5, [r0,#2]
+	mov r10, #240
+	AND r5, r5, r10
+	
+	bl _find_number
+	
+	lsl r12, #8
+	
+	ldrb r5, [r0,#2]
+	mov r10, #15
+	AND r5, r5, r10
+	
+	bl _find_number
+	
+	str r12, [r6]
+	mov r12, #0x0000000
 	
 	ldrb r5, [r0,#1]
-	ldr r10, =#61440
+	mov r10, #240
+	AND r5, r5, r10
+	
+	bl _find_number
+	
+	lsl r12, #8
+
+	ldrb r5, [r0,#1]
+	mov r10, #15
 	AND r5, r5, r10
 	
 	bl _find_number
@@ -176,33 +202,22 @@ displayNumber:
 	lsl r12, #8
 	
 	ldrb r5, [r0,#0]
+	mov r10, #240
+	AND r5, r5, r10
+	
+	bl _find_number
+	
+	lsl r12, #8
+
+	ldrb r5, [r0,#0]
 	mov r10, #15
 	AND r5, r5, r10
 	
 	bl _find_number
 	
+	str r12, [r7]
+	mov r12, #0x0000000
 
-
-
-displayNumber2:
-	//ldrb r5, [r0,#0] //load first byte in memory
-	//mov r10, #240 //set r10 to 160 (10100000)
-	//AND r5, r5, r10 //AND operation to get only the most significant bits
-
-	//bl _find_number
-	//str r5, [r7, #4]
-
-displayNumber3:
-
-displayNumber4:
-
-displayNumber5:
-
-displayNumber6:
-
-
-	
-	
     bal LOOP
 
 _find_number:
