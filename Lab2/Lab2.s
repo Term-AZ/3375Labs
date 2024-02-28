@@ -204,23 +204,23 @@ b2:
 	sub r2, r2,#160
 	b checker
 b3:
-	//ldr r5, =#4096
-	add r2, r2, #4096
-	//ldr r5, =#2560
-	sub r2, r2, #2560
+	ldr r5, =#4096
+	add r2, r2, r5
+	ldr r5, =#2560
+	sub r2, r2, r5
 	b checker
 b4:
-	//ldr r5, =#65536
-	add r2, r2, #65536
-	//ldr r5, =#40960
-	sub r2, r2, #40960
+	ldr r5, =#65536
+	add r2, r2, r5
+	ldr r5, =#40960
+	sub r2, r2, r5
 	b checker
 	
 b5:
-	//ldr r5, =#1048576
-	add r2, r2, #1048576
-	//ldr r5, =#655360
-	sub r2, r2, #655360
+	ldr r5, =#1048576
+	add r2, r2, r5
+	ldr r5, =#655360
+	sub r2, r2, r5
 	b checker
 
 b6:
